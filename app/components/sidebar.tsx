@@ -11,6 +11,11 @@ import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 
+import NextImage from "next/image";
+import GrandshoresLightIcon from "../icons/grandshores-light.png";
+import GrandshoresDarkIcon from "../icons/grandshores-dark.png";
+import { Theme } from "../store";
+
 import Locale from "../locales";
 
 import { useAppConfig, useChatStore } from "../store";
@@ -109,23 +114,45 @@ export function SideBar(props: { className?: string }) {
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
   const config = useAppConfig();
+  const theme = config.theme;
 
   useHotKey();
 
   return (
     <div
-      className={`${styles.sidebar} ${props.className} ${
-        shouldNarrow && styles["narrow-sidebar"]
-      }`}
+      className={`${styles.sidebar} ${props.className} ${shouldNarrow && styles["narrow-sidebar"]
+        }`}
     >
       <div className={styles["sidebar-header"]}>
-        <div className={styles["sidebar-title"]}>ChatGPT-Midjourney</div>
-        <div className={styles["sidebar-sub-title"]}>
+        {/* <div className={styles["sidebar-title"]}>GRANDSHORES INTELLIGENCE</div> */}
+        {/* <div className={styles["sidebar-sub-title"]}>
           Your own AI assistant.
-        </div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>
+        </div> */}
+        {/* <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
-        </div>
+        </div> */}
+        {theme === Theme.Auto ? (
+          <NextImage
+            src={GrandshoresLightIcon.src}
+            alt="logo"
+            width={155}
+            height={50}
+          />
+        ) : theme === Theme.Light ? (
+          <NextImage
+            src={GrandshoresLightIcon.src}
+            alt="logo"
+            width={155}
+            height={50}
+          />
+        ) : theme === Theme.Dark ? (
+          <NextImage
+            src={GrandshoresDarkIcon.src}
+            alt="logo"
+            width={155}
+            height={50}
+          />
+        ) : null}
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
