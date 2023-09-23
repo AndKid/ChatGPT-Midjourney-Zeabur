@@ -1,5 +1,5 @@
-import {useDebouncedCallback} from "use-debounce";
-import {useState, useRef, useEffect, useLayoutEffect} from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
@@ -45,28 +45,28 @@ import {
 
 import dynamic from "next/dynamic";
 
-import {ChatControllerPool} from "../client/controller";
-import {Prompt, usePromptStore} from "../store/prompt";
+import { ChatControllerPool } from "../client/controller";
+import { Prompt, usePromptStore } from "../store/prompt";
 import Locale from "../locales";
 
-import {IconButton} from "./button";
+import { IconButton } from "./button";
 import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
-import {ListItem, Modal} from "./ui-lib";
-import {useLocation, useNavigate} from "react-router-dom";
-import {LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS} from "../constant";
-import {Avatar} from "./emoji";
-import {MaskAvatar, MaskConfig} from "./mask";
-import {useMaskStore} from "../store/mask";
-import {useCommand} from "../command";
-import {prettyObject} from "../utils/format";
-import {ExportMessageModal} from "./exporter";
-import {Button} from "emoji-picker-react/src/components/atoms/Button";
+import { ListItem, Modal } from "./ui-lib";
+import { useLocation, useNavigate } from "react-router-dom";
+import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
+import { Avatar } from "./emoji";
+import { MaskAvatar, MaskConfig } from "./mask";
+import { useMaskStore } from "../store/mask";
+import { useCommand } from "../command";
+import { prettyObject } from "../utils/format";
+import { ExportMessageModal } from "./exporter";
+import { Button } from "emoji-picker-react/src/components/atoms/Button";
 import Image from "next/image";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
-    loading: () => <LoadingIcon/>,
+    loading: () => <LoadingIcon />,
 });
 
 export function SessionConfigModel(props: { onClose: () => void }) {
@@ -83,7 +83,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
                 actions={[
                     <IconButton
                         key="reset"
-                        icon={<ResetIcon/>}
+                        icon={<ResetIcon />}
                         bordered
                         text={Locale.Chat.Config.Reset}
                         onClick={() => {
@@ -96,7 +96,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
                     />,
                     <IconButton
                         key="copy"
-                        icon={<CopyIcon/>}
+                        icon={<CopyIcon />}
                         bordered
                         text={Locale.Chat.Config.SaveAs}
                         onClick={() => {
@@ -111,7 +111,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
                 <MaskConfig
                     mask={session.mask}
                     updateMask={(updater) => {
-                        const mask = {...session.mask};
+                        const mask = { ...session.mask };
                         updater(mask);
                         chatStore.updateCurrentSession((session) => (session.mask = mask));
                     }}
@@ -149,14 +149,14 @@ function PromptToast(props: {
                     role="button"
                     onClick={() => props.setShowModal(true)}
                 >
-                    <BrainIcon/>
+                    <BrainIcon />
                     <span className={chatStyle["prompt-toast-content"]}>
-            {Locale.Context.Toast(context.length)}
-          </span>
+                        {Locale.Context.Toast(context.length)}
+                    </span>
                 </div>
             )}
             {props.showModal && (
-                <SessionConfigModel onClose={() => props.setShowModal(false)}/>
+                <SessionConfigModel onClose={() => props.setShowModal(false)} />
             )}
         </div>
     );
@@ -321,7 +321,7 @@ export function ChatActions(props: {
     const theme = config.theme;
 
     function nextTheme() {
-        const themes = [Theme.Auto, Theme.Light, Theme.Dark];
+        const themes = [/*Theme.Auto, */Theme.Light, Theme.Dark];
         const themeIndex = themes.indexOf(theme);
         const nextIndex = (themeIndex + 1) % themes.length;
         const nextTheme = themes[nextIndex];
@@ -359,7 +359,7 @@ export function ChatActions(props: {
                     className={`${chatStyle["chat-input-action"]} clickable`}
                     onClick={stopAll}
                 >
-                    <StopIcon/>
+                    <StopIcon />
                 </div>
             )}
             {!props.hitBottom && (
@@ -367,7 +367,7 @@ export function ChatActions(props: {
                     className={`${chatStyle["chat-input-action"]} clickable`}
                     onClick={props.scrollToBottom}
                 >
-                    <BottomIcon/>
+                    <BottomIcon />
                 </div>
             )}
             {props.hitBottom && (
@@ -375,7 +375,7 @@ export function ChatActions(props: {
                     className={`${chatStyle["chat-input-action"]} clickable`}
                     onClick={props.showPromptModal}
                 >
-                    <SettingsIcon/>
+                    <SettingsIcon />
                 </div>
             )}
 
@@ -383,20 +383,20 @@ export function ChatActions(props: {
                 className={`${chatStyle["chat-input-action"]} clickable`}
                 onClick={nextTheme}
             >
-                {theme === Theme.Auto ? (
+                {/*theme === Theme.Auto ? (
                     <AutoIcon/>
-                ) : theme === Theme.Light ? (
-                    <LightIcon/>
-                ) : theme === Theme.Dark ? (
-                    <DarkIcon/>
-                ) : null}
+                ) : */theme === Theme.Light ? (
+                        <LightIcon />
+                    ) : theme === Theme.Dark ? (
+                        <DarkIcon />
+                    ) : null}
             </div>
 
             <div
                 className={`${chatStyle["chat-input-action"]} clickable`}
                 onClick={props.showPromptHints}
             >
-                <PromptIcon/>
+                <PromptIcon />
             </div>
 
             <div
@@ -405,7 +405,7 @@ export function ChatActions(props: {
                     navigate(Path.Masks);
                 }}
             >
-                <MaskIcon/>
+                <MaskIcon />
             </div>
 
             <div
@@ -421,7 +421,7 @@ export function ChatActions(props: {
                     });
                 }}
             >
-                <BreakIcon/>
+                <BreakIcon />
             </div>
 
             <div
@@ -432,10 +432,10 @@ export function ChatActions(props: {
                     type="file"
                     accept=".png,.jpg,.webp,.jpeg"
                     id="chat-image-file-select-upload"
-                    style={{display: "none"}}
+                    style={{ display: "none" }}
                     onChange={onImageSelected}
                 />
-                <UploadIcon/>
+                <UploadIcon />
             </div>
         </div>
     );
@@ -459,8 +459,8 @@ export function Chat() {
     const [useImages, setUseImages] = useState<any[]>([]);
     const [mjImageMode, setMjImageMode] = useState<string>("IMAGINE");
     const [isLoading, setIsLoading] = useState(false);
-    const {submitKey, shouldSubmit} = useSubmitHandler();
-    const {scrollRef, setAutoScroll, scrollToBottom} = useScrollToBottom();
+    const { submitKey, shouldSubmit } = useSubmitHandler();
+    const { scrollRef, setAutoScroll, scrollToBottom } = useScrollToBottom();
     const [hitBottom, setHitBottom] = useState(true);
     const isMobileScreen = useMobileScreen();
     const navigate = useNavigate();
@@ -478,7 +478,7 @@ export function Chat() {
             setPromptHints(promptStore.search(text));
         },
         100,
-        {leading: true, trailing: true},
+        { leading: true, trailing: true },
     );
 
     const onPromptSelect = (prompt: Prompt) => {
@@ -587,7 +587,7 @@ export function Chat() {
             // auto sync mask config from global config
             if (session.mask.syncGlobalConfig) {
                 console.log("[Mask] syncing from global, name = ", session.mask.name);
-                session.mask.modelConfig = {...config.modelConfig};
+                session.mask.modelConfig = { ...config.modelConfig };
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -757,7 +757,7 @@ export function Chat() {
                 <div className="window-actions">
                     <div className={"window-action-button" + " " + styles.mobile}>
                         <IconButton
-                            icon={<ReturnIcon/>}
+                            icon={<ReturnIcon />}
                             bordered
                             title={Locale.Chat.Actions.ChatList}
                             onClick={() => navigate(Path.Home)}
@@ -765,14 +765,14 @@ export function Chat() {
                     </div>
                     <div className="window-action-button">
                         <IconButton
-                            icon={<RenameIcon/>}
+                            icon={<RenameIcon />}
                             bordered
                             onClick={renameSession}
                         />
                     </div>
                     <div className="window-action-button">
                         <IconButton
-                            icon={<ExportIcon/>}
+                            icon={<ExportIcon />}
                             bordered
                             title={Locale.Chat.Actions.Export}
                             onClick={() => {
@@ -783,7 +783,7 @@ export function Chat() {
                     {!isMobileScreen && (
                         <div className="window-action-button">
                             <IconButton
-                                icon={config.tightBorder ? <MinIcon/> : <MaxIcon/>}
+                                icon={config.tightBorder ? <MinIcon /> : <MaxIcon />}
                                 bordered
                                 onClick={() => {
                                     config.update(
@@ -841,9 +841,9 @@ export function Chat() {
                                 <div className={styles["chat-message-container"]}>
                                     <div className={styles["chat-message-avatar"]}>
                                         {message.role === "user" ? (
-                                            <Avatar avatar={config.avatar}/>
+                                            <Avatar avatar={config.avatar} />
                                         ) : (
-                                            <MaskAvatar mask={session.mask}/>
+                                            <MaskAvatar mask={session.mask} />
                                         )}
                                     </div>
                                     {showTyping && (
@@ -1000,14 +1000,14 @@ export function Chat() {
                                     )}
                                 </div>
                             </div>
-                            {shouldShowClearContextDivider && <ClearContextDivider/>}
+                            {shouldShowClearContextDivider && <ClearContextDivider />}
                         </>
                     );
                 })}
             </div>
 
             <div className={styles["chat-input-panel"]}>
-                <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect}/>
+                <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
 
                 <ChatActions
                     showPromptModal={() => setShowPromptModal(true)}
@@ -1045,11 +1045,11 @@ export function Chat() {
                                 alt={img.filename}
                             />
                         ))}
-                        <div style={{fontSize: "12px", marginBottom: "5px"}}>
+                        <div style={{ fontSize: "12px", marginBottom: "5px" }}>
                             {[
-                                {name: Locale.Midjourney.ModeImagineUseImg, value: "IMAGINE"},
-                                {name: Locale.Midjourney.ModeBlend, value: "BLEND"},
-                                {name: Locale.Midjourney.ModeDescribe, value: "DESCRIBE"},
+                                { name: Locale.Midjourney.ModeImagineUseImg, value: "IMAGINE" },
+                                { name: Locale.Midjourney.ModeBlend, value: "BLEND" },
+                                { name: Locale.Midjourney.ModeDescribe, value: "DESCRIBE" },
                             ].map((item, i) => (
                                 <label key={i}>
                                     <input
@@ -1065,31 +1065,31 @@ export function Chat() {
                                 </label>
                             ))}
                         </div>
-                        <div style={{fontSize: "12px"}}>
+                        <div style={{ fontSize: "12px" }}>
                             <small>{Locale.Midjourney.HasImgTip}</small>
                         </div>
                     </div>
                 )}
                 <div className={styles["chat-input-panel-inner"]}>
-          <textarea
-              ref={inputRef}
-              className={styles["chat-input"]}
-              placeholder={
-                  useImages.length > 0 && mjImageMode != "IMAGINE"
-                      ? Locale.Midjourney.InputDisabled
-                      : Locale.Chat.Input(submitKey)
-              }
-              onInput={(e) => onInput(e.currentTarget.value)}
-              value={userInput}
-              onKeyDown={onInputKeyDown}
-              onFocus={() => setAutoScroll(true)}
-              onBlur={() => setAutoScroll(false)}
-              rows={inputRows}
-              autoFocus={autoFocus}
-              disabled={useImages.length > 0 && mjImageMode != "IMAGINE"}
-          />
+                    <textarea
+                        ref={inputRef}
+                        className={styles["chat-input"]}
+                        placeholder={
+                            useImages.length > 0 && mjImageMode != "IMAGINE"
+                                ? Locale.Midjourney.InputDisabled
+                                : Locale.Chat.Input(submitKey)
+                        }
+                        onInput={(e) => onInput(e.currentTarget.value)}
+                        value={userInput}
+                        onKeyDown={onInputKeyDown}
+                        onFocus={() => setAutoScroll(true)}
+                        onBlur={() => setAutoScroll(false)}
+                        rows={inputRows}
+                        autoFocus={autoFocus}
+                        disabled={useImages.length > 0 && mjImageMode != "IMAGINE"}
+                    />
                     <IconButton
-                        icon={<SendWhiteIcon/>}
+                        icon={<SendWhiteIcon />}
                         text={Locale.Chat.Send}
                         className={styles["chat-input-send"]}
                         type="primary"
@@ -1099,7 +1099,7 @@ export function Chat() {
             </div>
 
             {showExport && (
-                <ExportMessageModal onClose={() => setShowExport(false)}/>
+                <ExportMessageModal onClose={() => setShowExport(false)} />
             )}
         </div>
     );

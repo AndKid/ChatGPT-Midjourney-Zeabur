@@ -131,28 +131,28 @@ export function SideBar(props: { className?: string }) {
         {/* <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
         </div> */}
-        {theme === Theme.Auto ? (
+        {/*theme === Theme.Auto ? (
           <NextImage
             src={GrandshoresLightIcon.src}
             alt="logo"
             width={155}
             height={50}
           />
-        ) : theme === Theme.Light ? (
-          <NextImage
-            src={GrandshoresLightIcon.src}
-            alt="logo"
-            width={155}
-            height={50}
-          />
-        ) : theme === Theme.Dark ? (
-          <NextImage
-            src={GrandshoresDarkIcon.src}
-            alt="logo"
-            width={155}
-            height={50}
-          />
-        ) : null}
+        ) : */theme === Theme.Light ? (
+            <NextImage
+              src={GrandshoresLightIcon.src}
+              alt="logo"
+              width={155}
+              height={50}
+            />
+          ) : theme === Theme.Dark ? (
+            <NextImage
+              src={GrandshoresDarkIcon.src}
+              alt="logo"
+              width={155}
+              height={50}
+            />
+          ) : null}
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
