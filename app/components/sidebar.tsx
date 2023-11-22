@@ -133,36 +133,6 @@ https://static-new.tokshine.com/xa.png"
             width="100%"
           ></img>
         </div>
-        {/* <div className={styles["sidebar-sub-title"]}>
-          Your own AI assistant.
-        </div> */}
-        {/* <div className={styles["sidebar-logo"] + " no-dark"}>
-          <ChatGptIcon />
-        </div> */}
-        {
-          /*theme === Theme.Auto ? (
-          <NextImage
-            src={GrandshoresLightIcon.src}
-            alt="logo"
-            width={155}
-            height={50}
-          />
-        ) : */ theme === Theme.Light ? (
-            <NextImage
-              src={GrandshoresLightIcon.src}
-              alt="logo"
-              width={155}
-              height={50}
-            />
-          ) : theme === Theme.Dark ? (
-            <NextImage
-              src={GrandshoresDarkIcon.src}
-              alt="logo"
-              width={155}
-              height={50}
-            />
-          ) : null
-        }
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
@@ -210,25 +180,23 @@ https://static-new.tokshine.com/xa.png"
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
-         <div className={styles["sidebar-action"]}> 
-           <IconButton
-            icon={<AddIcon />}
-            text={shouldNarrow ? undefined : Locale.Home.NewChat}
-            onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
-                navigate(Path.Chat);
-              } else {
-                navigate(Path.NewChat);
-              }
-            }}
-            shadow
-          />
-          </div> 
+          <div className={styles["sidebar-action"]}>
+            <IconButton
+              icon={<AddIcon />}
+              text={shouldNarrow ? undefined : Locale.Home.NewChat}
+              onClick={() => {
+                if (config.dontShowMaskSplashScreen) {
+                  chatStore.newSession();
+                  navigate(Path.Chat);
+                } else {
+                  navigate(Path.NewChat);
+                }
+              }}
+              shadow
+            />
+          </div>
         </div>
-        <div>
-          
-        </div>
+        <div></div>
       </div>
 
       <div
