@@ -120,25 +120,34 @@ export function SideBar(props: { className?: string }) {
 
   return (
     <div
-      className={`${styles.sidebar} ${props.className} ${shouldNarrow && styles["narrow-sidebar"]
-        }`}
+      className={`${styles.sidebar} ${props.className} ${
+        shouldNarrow && styles["narrow-sidebar"]
+      }`}
     >
       <div className={styles["sidebar-header"]}>
-        {/* <div className={styles["sidebar-title"]}>GRANDSHORES INTELLIGENCE</div> */}
+        <div className={styles["sidebar-title"]}>
+          {" "}
+          <img
+            src="
+https://static-new.tokshine.com/xa.png"
+            width="100%"
+          ></img>
+        </div>
         {/* <div className={styles["sidebar-sub-title"]}>
           Your own AI assistant.
         </div> */}
         {/* <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
         </div> */}
-        {/*theme === Theme.Auto ? (
+        {
+          /*theme === Theme.Auto ? (
           <NextImage
             src={GrandshoresLightIcon.src}
             alt="logo"
             width={155}
             height={50}
           />
-        ) : */theme === Theme.Light ? (
+        ) : */ theme === Theme.Light ? (
             <NextImage
               src={GrandshoresLightIcon.src}
               alt="logo"
@@ -152,11 +161,12 @@ export function SideBar(props: { className?: string }) {
               width={155}
               height={50}
             />
-          ) : null}
+          ) : null
+        }
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
-        <IconButton
+        {/* <IconButton
           icon={<MaskIcon />}
           text={shouldNarrow ? undefined : Locale.Mask.Name}
           className={styles["sidebar-bar-button"]}
@@ -169,7 +179,7 @@ export function SideBar(props: { className?: string }) {
           className={styles["sidebar-bar-button"]}
           onClick={() => showToast(Locale.WIP)}
           shadow
-        />
+        /> */}
       </div>
 
       <div
@@ -200,14 +210,8 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
-          <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank">
-              <IconButton icon={<GithubIcon />} shadow />
-            </a>
-          </div>
-        </div>
-        <div>
-          <IconButton
+         <div className={styles["sidebar-action"]}> 
+           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
             onClick={() => {
@@ -220,6 +224,10 @@ export function SideBar(props: { className?: string }) {
             }}
             shadow
           />
+          </div> 
+        </div>
+        <div>
+          
         </div>
       </div>
 

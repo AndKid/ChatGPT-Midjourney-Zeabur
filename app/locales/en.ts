@@ -140,6 +140,28 @@ const en: RequiredLocaleType = {
       Title: "Font Size",
       SubTitle: "Adjust font size of chat content",
     },
+    Color: {
+      Title: "background color",
+      SubTitle: "The background color of the video content",
+    },
+    Backimg: {
+      Title: "video background",
+      SubTitle: "Background selection of video content",
+      BackimgTitle: "background image",
+    },
+    Backcheck: {
+      Title: "Video background selection",
+      SubTitle: "Video background form",
+    },
+   
+    Voicecheck: {
+      Title: "Video voice selection",
+      SubTitle: "Select play sound",
+    },
+    Personmodel: {
+      Title: "Character model selection",
+      SubTitle: "Select character model",
+    },
     Update: {
       Version: (x: string) => `Version: ${x}`,
       IsLatest: "Latest version",
@@ -147,6 +169,7 @@ const en: RequiredLocaleType = {
       IsChecking: "Checking update...",
       FoundUpdate: (x: string) => `Found new version: ${x}`,
       GoToUpdate: "Update",
+      Preview: "Preview",
     },
     SendKey: "Send Key",
     Theme: "Theme",
@@ -190,6 +213,11 @@ const en: RequiredLocaleType = {
       Title: "API Key",
       SubTitle: "Use your key to ignore access code limit",
       Placeholder: "OpenAI API Key",
+    },
+    HeygenToken: {
+      Title: "Heygen API Key",
+      SubTitle: "Use your own Heygen api key",
+      Placeholder: "Heygen API Key",
     },
     Usage: {
       Title: "Account Balance",

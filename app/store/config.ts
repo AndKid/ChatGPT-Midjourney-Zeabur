@@ -9,7 +9,19 @@ export enum SubmitKey {
   AltEnter = "Alt + Enter",
   MetaEnter = "Meta + Enter",
 }
-
+export enum checkFlag {
+  Auto = "背景颜色",
+  First = "图片背景",
+  Second = "视频背景",
+}
+export enum voiceCheck {
+  Female = "女声",
+  Male = "男声",
+}
+export enum personModel {
+  FemaleModel = "女生",
+  MaleModel = "男生",
+}
 export enum Theme {
   // Auto = "auto",
   Dark = "dark",
@@ -20,6 +32,11 @@ export const DEFAULT_CONFIG = {
   submitKey: SubmitKey.CtrlEnter as SubmitKey,
   avatar: "1f603",
   fontSize: 14,
+  checkFlag: checkFlag.Auto as checkFlag,
+  voiceCheck: voiceCheck.Female as voiceCheck,
+  personModel: personModel.FemaleModel as personModel,
+  backColor: "#3175EF",
+  backImg: "https://www.dazanim.com/bg.png",
   theme: Theme.Light as Theme,
   tightBorder: false,
   sendPreviewBubble: true,

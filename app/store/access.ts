@@ -8,13 +8,13 @@ import { ALL_MODELS } from "./config";
 export interface AccessControlStore {
   accessCode: string;
   token: string;
-
+  heygenToken: string;
   needCode: boolean;
   hideUserApiKey: boolean;
   openaiUrl: string;
   midjourneyProxyUrl: string;
   useMjImgSelfProxy: boolean;
-
+  updateHeygenToken: (_: string) => void;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateMidjourneyProxyUrl: (_: string) => void;
@@ -30,6 +30,7 @@ export const useAccessStore = create<AccessControlStore>()(
     (set, get) => ({
       token: "",
       accessCode: "",
+      heygenToken: "",
       needCode: true,
       hideUserApiKey: false,
       openaiUrl: "/api/openai/",
@@ -47,6 +48,9 @@ export const useAccessStore = create<AccessControlStore>()(
       updateToken(token: string) {
         set(() => ({ token }));
       },
+      updateHeygenToken(heygenToken: string) {
+        set(() => ({ heygenToken: heygenToken?.trim() }));
+      },
       updateMidjourneyProxyUrl(midjourneyProxyUrl: string) {
         set(() => ({ midjourneyProxyUrl }));
       },
@@ -55,7 +59,10 @@ export const useAccessStore = create<AccessControlStore>()(
 
         // has token or has code or disabled access control
         return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
+          !!get().token ||
+          !!get().accessCode ||
+          !get().enabledAccessControl() ||
+          !!get().heygenToken
         );
       },
       fetch() {

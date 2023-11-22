@@ -138,7 +138,28 @@ const cn = {
       Title: "字体大小",
       SubTitle: "聊天内容的字体大小",
     },
-
+    Color: {
+      Title: "背景颜色",
+      SubTitle: "视频内容的背景颜色",
+    },
+    Backimg: {
+      Title: "视频背景",
+      SubTitle: "视频内容的背景选择",
+      BackimgTitle: "背景图",
+    },
+    Backcheck: {
+      Title: "视频背景选择",
+      SubTitle: "视频背景形式",
+      
+    },
+    Voicecheck:{
+      Title: "视频人声选择",
+      SubTitle: "选择播放声音",
+    },
+    Personmodel:{
+      Title: "人物模型选择",
+      SubTitle: "选择人物模型",
+    },
     Update: {
       Version: (x: string) => `当前版本：${x}`,
       IsLatest: "已是最新版本",
@@ -146,6 +167,7 @@ const cn = {
       IsChecking: "正在检查更新...",
       FoundUpdate: (x: string) => `发现新版本：${x}`,
       GoToUpdate: "前往更新",
+      Preview:"预览"
     },
     SendKey: "发送键",
     Theme: "主题",
@@ -189,7 +211,11 @@ const cn = {
       SubTitle: "使用自己的 Key 可绕过密码访问限制",
       Placeholder: "OpenAI API Key",
     },
-
+    HeygenToken: {
+      Title: "Heygen API Key",
+      SubTitle: "可以使用自己的 Heygen api key",
+      Placeholder: "Heygen API Key",
+    },
     Usage: {
       Title: "余额查询",
       SubTitle(used: any, total: any) {
