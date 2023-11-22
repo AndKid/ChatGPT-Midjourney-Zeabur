@@ -10,6 +10,7 @@ declare global {
       VERCEL?: string;
       HIDE_USER_API_KEY?: string; // disable user's api key input
       DISABLE_GPT4?: string; // allow user to use gpt-4 or not
+      HEYGEN_API_KEY?: string;
     }
   }
 }
@@ -35,6 +36,7 @@ export const getServerSideConfig = () => {
   }
 
   return {
+    xApiKey: process.env.HEYGEN_API_KEY,
     apiKey: process.env.OPENAI_API_KEY,
     code: process.env.CODE,
     codes: ACCESS_CODES,

@@ -86,6 +86,34 @@ export function PreCode(props: { children: any }) {
 }
 
 function _MarkDownContent(props: { content: string }) {
+  const renderLink = (aProps: any) => {
+    const href = aProps.href || "";
+    const isInternal = /^\/#/i.test(href);
+    const target = isInternal ? "_self" : aProps.target ?? "_blank";
+
+    // Check if it's a video link
+    if (/\.(mp4|webm|ogg)$/i.test(href)) {
+      return (
+        <video controls style={{ maxWidth: "100%" }}>
+          <source src={href} type="video/mp4" />
+        </video>
+      );
+    }
+
+    // Check if it's a video download link
+    if (/\.mp4\?/.test(href)) {
+      const videoUrl = href;
+      return (
+        <video controls style={{ maxWidth: "100%" }}>
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+
+    return <a {...aProps} target={target} />;
+  };
+
   return (
     <ReactMarkdown
       remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
@@ -101,19 +129,14 @@ function _MarkDownContent(props: { content: string }) {
       ]}
       components={{
         pre: PreCode,
-        a: (aProps) => {
-          const href = aProps.href || "";
-          const isInternal = /^\/#/i.test(href);
-          const target = isInternal ? "_self" : aProps.target ?? "_blank";
-          return <a {...aProps} target={target} />;
-        },
+        p: (pProps) => <p {...pProps} dir="auto" />,
+        a: renderLink,
       }}
     >
       {props.content}
     </ReactMarkdown>
   );
 }
-
 export const MarkdownContent = React.memo(_MarkDownContent);
 
 export function Markdown(
