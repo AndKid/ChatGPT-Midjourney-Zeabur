@@ -5,7 +5,13 @@ import { trimTopic } from "../utils";
 
 import Locale from "../locales";
 import { showToast } from "../components/ui-lib";
-import { checkFlag, ModelType, personModel, useAppConfig, voiceCheck, } from "./config";
+import {
+  checkFlag,
+  ModelType,
+  personModel,
+  useAppConfig,
+  voiceCheck,
+} from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import { StoreKey } from "../constant";
 import {
@@ -576,102 +582,107 @@ export const useChatStore = create<ChatStore>()(
             .startsWith("/hi" || content.toLowerCase().startsWith("/Hi"))
         ) {
           {
-            const appConfig = useAppConfig.getState();
-            const api = useAccessStore.getState();
-            const generateVideo = async () => {
-              const response = await fetch("/api/generateVideo", {
-                method: "POST",
-                body: JSON.stringify({
-                  video_inputs: [
-                    {
-                      character: {
-                        type: "avatar",
-                        avatar_id:
-                          appConfig.personModel === personModel.FemaleModel
-                            ? "Angela-inwhiteskirt-20220820"
-                            : "Joon-incasualsuit-20220821",
-                        avatar_style: "normal",
-                        // type: "talking_photo",
-                        // talking_photo_id: "ba9c11684315405aac1dd8ed987fdda2"
+            if (!useAccessStore.getState().isAuthorized()) {
+              botMessage.streaming = false;
+              botMessage.content = Locale.Error.Unauthorized;
+            } else {
+              const appConfig = useAppConfig.getState();
+              const api = useAccessStore.getState();
+              const generateVideo = async () => {
+                const response = await fetch("/api/generateVideo", {
+                  method: "POST",
+                  body: JSON.stringify({
+                    video_inputs: [
+                      {
+                        character: {
+                          type: "avatar",
+                          avatar_id:
+                            appConfig.personModel === personModel.FemaleModel
+                              ? "Angela-inwhiteskirt-20220820"
+                              : "Joon-incasualsuit-20220821",
+                          avatar_style: "normal",
+                          // type: "talking_photo",
+                          // talking_photo_id: "ba9c11684315405aac1dd8ed987fdda2"
+                        },
+                        voice: {
+                          type: "text",
+                          input_text: content.substring(3).trim(),
+                          voice_id:
+                            appConfig.voiceCheck === voiceCheck.Male
+                              ? "961546a1be64458caa1386ff63dd5d5f"
+                              : "8a44173a27984487b3fa86e56004218c",
+                        },
+                        background: {
+                          type:
+                            appConfig.checkFlag === checkFlag.Auto
+                              ? "color"
+                              : appConfig.checkFlag === checkFlag.First
+                              ? "image"
+                              : "video",
+                          value:
+                            appConfig.checkFlag === checkFlag.Auto
+                              ? appConfig.backColor.toString()
+                              : "",
+                          url:
+                            appConfig.checkFlag === checkFlag.First
+                              ? appConfig.backImg
+                              : appConfig.checkFlag === checkFlag.Second
+                              ? "https://www.dazanim.com/hi.mp4"
+                              : "",
+                          play_style:
+                            appConfig.checkFlag === checkFlag.Second
+                              ? "loop"
+                              : "",
+                        },
                       },
-                      voice: {
-                        type: "text",
-                        input_text: content.substring(3).trim(),
-                        voice_id:
-                          appConfig.voiceCheck === voiceCheck.Male
-                            ? "961546a1be64458caa1386ff63dd5d5f"
-                            : "8a44173a27984487b3fa86e56004218c",
-                      },
-                      background: {
-                        type:
-                          appConfig.checkFlag === checkFlag.Auto
-                            ? "color"
-                            : appConfig.checkFlag === checkFlag.First
-                            ? "image"
-                            : "video",
-                        value:
-                          appConfig.checkFlag === checkFlag.Auto
-                            ? appConfig.backColor.toString()
-                            : "",
-                        url:
-                          appConfig.checkFlag === checkFlag.First
-                            ? appConfig.backImg
-                            : appConfig.checkFlag === checkFlag.Second
-                            ? "https://www.dazanim.com/hi.mp4"
-                            : "",
-                        play_style:
-                          appConfig.checkFlag === checkFlag.Second
-                            ? "loop"
-                            : "",
-                      },
-                    },
-                  ],
-                  test: false,
-                  aspect_ratio: "16:9",
-                  token: api.heygenToken,
-                  // caption: appConfig.autoTitleGeneration,
-                }),
-              });
-              const res = await response.json();
-              const handleError = (data: string) => {
-                botMessage.streaming = false;
-                botMessage.content = data;
-                get().onNewMessage(botMessage);
-              };
-              if (res.error === null) {
-                async function checkVideoStatus() {
-                  const response = await fetch(`/api/videoStatus`, {
-                    method: "POST",
-                    body: JSON.stringify({
-                      video_id: res.data.video_id,
-                      token: api.heygenToken,
-                    }),
-                  });
-                  const data = await response.json();
-                  const { status, video_url_caption, video_url, error } =
-                    data.data;
-                  if (status !== "failed") {
-                    if (status === "processing" || status === "waiting") {
-                      setTimeout(checkVideoStatus, 2000);
-                    } else if (status === "completed") {
-                      const url =
-                        video_url_caption === null
-                          ? video_url
-                          : video_url_caption;
-                      handleError(url);
+                    ],
+                    test: false,
+                    aspect_ratio: "16:9",
+                    token: api.heygenToken,
+                    // caption: appConfig.autoTitleGeneration,
+                  }),
+                });
+                const res = await response.json();
+                const handleError = (data: string) => {
+                  botMessage.streaming = false;
+                  botMessage.content = data;
+                  get().onNewMessage(botMessage);
+                };
+                if (res.error === null) {
+                  async function checkVideoStatus() {
+                    const response = await fetch(`/api/videoStatus`, {
+                      method: "POST",
+                      body: JSON.stringify({
+                        video_id: res.data.video_id,
+                        token: api.heygenToken,
+                      }),
+                    });
+                    const data = await response.json();
+                    const { status, video_url_caption, video_url, error } =
+                      data.data;
+                    if (status !== "failed") {
+                      if (status === "processing" || status === "waiting") {
+                        setTimeout(checkVideoStatus, 2000);
+                      } else if (status === "completed") {
+                        const url =
+                          video_url_caption === null
+                            ? video_url
+                            : video_url_caption;
+                        handleError(url);
+                      }
+                    } else {
+                      handleError(error.message);
                     }
-                  } else {
-                    handleError(error.message);
                   }
+
+                  checkVideoStatus();
+                } else {
+                  handleError(res.error.message);
                 }
+              };
 
-                checkVideoStatus();
-              } else {
-                handleError(res.error.message);
-              }
-            };
-
-            generateVideo();
+              generateVideo();
+            }
           }
         } else {
           api.llm.chat({
