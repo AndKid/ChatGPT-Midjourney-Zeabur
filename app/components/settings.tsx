@@ -519,9 +519,7 @@ export function Settings() {
                 }}
               />
             </ListItem>
-          ) : (
-            ""
-          )}
+          ) : null}
 
           <ListItem
             title={Locale.Settings.Voicecheck.Title}
@@ -556,9 +554,7 @@ export function Settings() {
                 }}
               />
             </ListItem>
-          ) : (
-            ""
-          )}
+          ) : null}
 
           <ListItem
             title={Locale.Settings.Backcheck.Title}
