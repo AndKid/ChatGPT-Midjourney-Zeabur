@@ -467,154 +467,7 @@ export function Settings() {
               }
             ></input>
           </ListItem>
-          <List>
-            <ListItem
-              title={Locale.Settings.Personmodel.Title}
-              subTitle={Locale.Settings.Personmodel.SubTitle}
-            >
-              <Select
-                value={config.personModel}
-                onChange={(e) => {
-                  updateConfig(
-                    (config) =>
-                      (config.personModel = e.target
-                        .value as any as personModel),
-                  );
-                }}
-              >
-                {Object.values(personModel).map((v) => (
-                  <option value={v} key={v}>
-                    {v}
-                  </option>
-                ))}
-              </Select>
-            </ListItem>
-            <ListItem
-              title={Locale.Settings.Voicecheck.Title}
-              subTitle={Locale.Settings.Voicecheck.SubTitle}
-            >
-              <Select
-                value={config.voiceCheck}
-                onChange={(e) => {
-                  updateConfig(
-                    (config) =>
-                      (config.voiceCheck = e.target.value as any as voiceCheck),
-                  );
-                }}
-              >
-                {Object.values(voiceCheck).map((v) => (
-                  <option value={v} key={v}>
-                    {v}
-                  </option>
-                ))}
-              </Select>
-            </ListItem>
-            <ListItem
-              title={Locale.Settings.Backcheck.Title}
-              subTitle={Locale.Settings.Backcheck.SubTitle}
-            >
-              <Select
-                value={config.checkFlag}
-                onChange={(e) => {
-                  updateConfig(
-                    (config) =>
-                      (config.checkFlag = e.target.value as any as checkFlag),
-                  );
-                }}
-              >
-                {Object.values(checkFlag).map((v) => (
-                  <option value={v} key={v}>
-                    {v}
-                  </option>
-                ))}
-              </Select>
-            </ListItem>
-            {config.checkFlag === checkFlag.Auto ? (
-              <ListItem
-                title={Locale.Settings.Color.Title}
-                subTitle={Locale.Settings.Color.SubTitle}
-              >
-                <ColorPicker
-                  value={config.backColor}
-                  size="small"
-                  onChangeComplete={(color: { toHexString: () => string }) => {
-                    updateConfig(
-                      (config) => (config.backColor = color.toHexString()),
-                    );
-                  }}
-                />
-              </ListItem>
-            ) : config.checkFlag === checkFlag.First ? (
-              <ListItem
-                title={Locale.Settings.Backimg.Title}
-                subTitle={Locale.Settings.Backimg.SubTitle}
-              >
-                <Radio.Group
-                  optionType="button"
-                  defaultValue={config.backImg}
-                  value={config.backImg}
-                  onChange={(e) => {
-                    updateConfig((config) => (config.backImg = e.target.value));
-                  }}
-                >
-                  <Radio value={"https://www.dazanim.com/bg.png"}>
-                    背景一{" "}
-                  </Radio>
-                  <Radio
-                    style={{ marginLeft: 10 }}
-                    value={"https://www.dazanim.com/hi.png"}
-                  >
-                    背景2
-                  </Radio>
-                </Radio.Group>
-              </ListItem>
-            ) : (
-              <ListItem
-                title={Locale.Settings.Backimg.Title}
-                subTitle={Locale.Settings.Backimg.SubTitle}
-              >
-                <Link
-                  href="https://www.dazanim.com/hi.mp4"
-                  target="_blank"
-                  className="link"
-                >
-                  {Locale.Settings.Update.Preview}
-                </Link>
-              </ListItem>
-            )}
 
-            {config.checkFlag === checkFlag.First ? (
-              <ListItem title={Locale.Settings.Backimg.BackimgTitle}>
-                {config.backImg === "https://www.dazanim.com/bg.png" ? (
-                  <Image
-                    width={100}
-                    height={50}
-                    src="https://www.dazanim.com/bg.png"
-                  />
-                ) : (
-                  <Image
-                    width={100}
-                    height={50}
-                    src="https://www.dazanim.com/hi.png"
-                  />
-                )}
-              </ListItem>
-            ) : null}
-
-            <ListItem
-              title={Locale.Settings.HeygenToken.Title}
-              subTitle={Locale.Settings.HeygenToken.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.heygenToken}
-                type="text"
-                placeholder={Locale.Settings.HeygenToken.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateHeygenToken(e.currentTarget.value);
-                }}
-              />
-            </ListItem>
-          </List>
           <ListItem
             title={Locale.Settings.Mask.Title}
             subTitle={Locale.Settings.Mask.SubTitle}
@@ -632,7 +485,185 @@ export function Settings() {
             ></input>
           </ListItem>
         </List>
+        <List>
+          <ListItem
+            title={Locale.Settings.Personmodel.Title}
+            subTitle={Locale.Settings.Personmodel.SubTitle}
+          >
+            <Select
+              value={config.personModel}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.personModel = e.target.value as any as personModel),
+                );
+              }}
+            >
+              {Object.values(personModel).map((v) => (
+                <option value={v} key={v}>
+                  {v}
+                </option>
+              ))}
+            </Select>
+          </ListItem>
+          {config.personModel === personModel.CustomModel ? (
+            <ListItem
+              title={Locale.Settings.AvatarToken.Title}
+              subTitle={Locale.Settings.AvatarToken.SubTitle}
+            >
+              <input
+                value={accessStore.avatarToken}
+                type="text"
+                onChange={(e) => {
+                  accessStore.updateAvatarToken(e.currentTarget.value);
+                }}
+              />
+            </ListItem>
+          ) : (
+            ""
+          )}
 
+          <ListItem
+            title={Locale.Settings.Voicecheck.Title}
+            subTitle={Locale.Settings.Voicecheck.SubTitle}
+          >
+            <Select
+              value={config.voiceCheck}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.voiceCheck = e.target.value as any as voiceCheck),
+                );
+              }}
+            >
+              {Object.values(voiceCheck).map((v) => (
+                <option value={v} key={v}>
+                  {v}
+                </option>
+              ))}
+            </Select>
+          </ListItem>
+          {config.voiceCheck === voiceCheck.Custom ? (
+            <ListItem
+              title={Locale.Settings.VoiceToken.Title}
+              subTitle={Locale.Settings.VoiceToken.SubTitle}
+            >
+              <input
+                value={accessStore.voiceToken}
+                type="text"
+                onChange={(e) => {
+                  accessStore.updateoViceToken(e.currentTarget.value);
+                }}
+              />
+            </ListItem>
+          ) : (
+            ""
+          )}
+
+          <ListItem
+            title={Locale.Settings.Backcheck.Title}
+            subTitle={Locale.Settings.Backcheck.SubTitle}
+          >
+            <Select
+              value={config.checkFlag}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.checkFlag = e.target.value as any as checkFlag),
+                );
+              }}
+            >
+              {Object.values(checkFlag).map((v) => (
+                <option value={v} key={v}>
+                  {v}
+                </option>
+              ))}
+            </Select>
+          </ListItem>
+          {config.checkFlag === checkFlag.Auto ? (
+            <ListItem
+              title={Locale.Settings.Color.Title}
+              subTitle={Locale.Settings.Color.SubTitle}
+            >
+              <ColorPicker
+                value={config.backColor}
+                size="small"
+                onChangeComplete={(color: { toHexString: () => string }) => {
+                  updateConfig(
+                    (config) => (config.backColor = color.toHexString()),
+                  );
+                }}
+              />
+            </ListItem>
+          ) : config.checkFlag === checkFlag.First ? (
+            <ListItem
+              title={Locale.Settings.Backimg.Title}
+              subTitle={Locale.Settings.Backimg.SubTitle}
+            >
+              <Radio.Group
+                optionType="button"
+                defaultValue={config.backImg}
+                value={config.backImg}
+                onChange={(e) => {
+                  updateConfig((config) => (config.backImg = e.target.value));
+                }}
+              >
+                <Radio value={"https://www.dazanim.com/bg.png"}>背景一 </Radio>
+                <Radio
+                  style={{ marginLeft: 10 }}
+                  value={"https://www.dazanim.com/hi.png"}
+                >
+                  背景2
+                </Radio>
+              </Radio.Group>
+            </ListItem>
+          ) : (
+            <ListItem
+              title={Locale.Settings.Backimg.Title}
+              subTitle={Locale.Settings.Backimg.SubTitle}
+            >
+              <Link
+                href="https://www.dazanim.com/hi.mp4"
+                target="_blank"
+                className="link"
+              >
+                {Locale.Settings.Update.Preview}
+              </Link>
+            </ListItem>
+          )}
+
+          {config.checkFlag === checkFlag.First ? (
+            <ListItem title={Locale.Settings.Backimg.BackimgTitle}>
+              {config.backImg === "https://www.dazanim.com/bg.png" ? (
+                <Image
+                  width={100}
+                  height={50}
+                  src="https://www.dazanim.com/bg.png"
+                />
+              ) : (
+                <Image
+                  width={100}
+                  height={50}
+                  src="https://www.dazanim.com/hi.png"
+                />
+              )}
+            </ListItem>
+          ) : null}
+
+          <ListItem
+            title={Locale.Settings.HeygenToken.Title}
+            subTitle={Locale.Settings.HeygenToken.SubTitle}
+          >
+            <PasswordInput
+              value={accessStore.heygenToken}
+              type="text"
+              placeholder={Locale.Settings.HeygenToken.Placeholder}
+              onChange={(e) => {
+                accessStore.updateHeygenToken(e.currentTarget.value);
+              }}
+            />
+          </ListItem>
+        </List>
         <List>
           <ListItem
             title={`MidjourneyProxy ${Locale.Midjourney.Url}`}
