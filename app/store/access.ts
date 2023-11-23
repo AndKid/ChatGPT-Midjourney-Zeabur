@@ -9,6 +9,8 @@ export interface AccessControlStore {
   accessCode: string;
   token: string;
   heygenToken: string;
+  avatarToken: string;
+  voiceToken: string;
   needCode: boolean;
   hideUserApiKey: boolean;
   openaiUrl: string;
@@ -21,6 +23,8 @@ export interface AccessControlStore {
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean;
   fetch: () => void;
+  updateAvatarToken: (_: string) => void;
+  updateoViceToken: (_: string) => void;
 }
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
@@ -32,11 +36,12 @@ export const useAccessStore = create<AccessControlStore>()(
       accessCode: "",
       heygenToken: "",
       needCode: true,
+      voiceToken: "",
       hideUserApiKey: false,
       openaiUrl: "/api/openai/",
       midjourneyProxyUrl: "",
       useMjImgSelfProxy: true,
-
+      avatarToken: "",
       enabledAccessControl() {
         get().fetch();
 
@@ -51,6 +56,13 @@ export const useAccessStore = create<AccessControlStore>()(
       updateHeygenToken(heygenToken: string) {
         set(() => ({ heygenToken: heygenToken?.trim() }));
       },
+      updateAvatarToken(avatarToken: string) {
+        set(() => ({ avatarToken: avatarToken?.trim() }));
+      },
+      updateoViceToken(voiceToken: string) {
+        set(() => ({ voiceToken: voiceToken?.trim() }));
+      },
+
       updateMidjourneyProxyUrl(midjourneyProxyUrl: string) {
         set(() => ({ midjourneyProxyUrl }));
       },
@@ -62,7 +74,9 @@ export const useAccessStore = create<AccessControlStore>()(
           !!get().token ||
           !!get().accessCode ||
           !get().enabledAccessControl() ||
-          !!get().heygenToken
+          !!get().heygenToken ||
+          !!get().avatarToken ||
+          !!get().voiceToken
         );
       },
       fetch() {

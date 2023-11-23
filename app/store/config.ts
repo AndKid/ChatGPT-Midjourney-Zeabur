@@ -17,10 +17,12 @@ export enum checkFlag {
 export enum voiceCheck {
   Female = "女声",
   Male = "男声",
+  Custom = "自定义",
 }
 export enum personModel {
   FemaleModel = "女生",
   MaleModel = "男生",
+  CustomModel = "自定义",
 }
 export enum Theme {
   // Auto = "auto",

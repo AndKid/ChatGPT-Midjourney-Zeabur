@@ -216,6 +216,16 @@ const cn = {
       SubTitle: "可以使用自己的 Heygen api key",
       Placeholder: "Heygen API Key",
     },
+    AvatarToken: {
+      Title: "自定义头像",
+      SubTitle: "可以使用自定义头像模型",
+      Placeholder: "",
+    },
+    VoiceToken: {
+      Title: "自定义声音",
+      SubTitle: "可以使用自定义自定义声音模型",
+      Placeholder: "",
+    },
     Usage: {
       Title: "余额查询",
       SubTitle(used: any, total: any) {
