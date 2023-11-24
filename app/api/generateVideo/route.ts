@@ -7,6 +7,7 @@ async function handle(req: NextRequest) {
     let resRuest = JSON.stringify({
       data,
     });
+    console.log(JSON.parse(resRuest).data.video_inputs);
 
     if (
       JSON.parse(resRuest).data.video_inputs[0].character.avatar_id == "" ||
