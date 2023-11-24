@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
 import { trimTopic } from "../utils";
-
 import Locale from "../locales";
 import { showToast } from "../components/ui-lib";
 import {
@@ -53,14 +51,12 @@ export interface ChatStat {
 export interface ChatSession {
   id: number;
   topic: string;
-
   memoryPrompt: string;
   messages: ChatMessage[];
   stat: ChatStat;
   lastUpdate: number;
   lastSummarizeIndex: number;
   clearContextIndex?: number;
-
   mask: Mask;
 }
 
@@ -631,7 +627,7 @@ export const useChatStore = create<ChatStore>()(
                             appConfig.checkFlag === checkFlag.First
                               ? appConfig.backImg
                               : appConfig.checkFlag === checkFlag.Second
-                              ? "https://www.dazanim.com/hi.mp4"
+                              ? "https://dazan.tokshine.com/hi.mp4"
                               : "",
                           play_style:
                             appConfig.checkFlag === checkFlag.Second

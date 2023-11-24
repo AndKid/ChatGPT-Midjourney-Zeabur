@@ -38,7 +38,7 @@ export const DEFAULT_CONFIG = {
   voiceCheck: voiceCheck.Female as voiceCheck,
   personModel: personModel.FemaleModel as personModel,
   backColor: "#3175EF",
-  backImg: "https://www.dazanim.com/bg.png",
+  backImg: "https://dazan.tokshine.com/bg.png",
   theme: Theme.Light as Theme,
   tightBorder: false,
   sendPreviewBubble: true,

@@ -604,10 +604,10 @@ export function Settings() {
                   updateConfig((config) => (config.backImg = e.target.value));
                 }}
               >
-                <Radio value={"https://www.dazanim.com/bg.png"}>背景一 </Radio>
+                <Radio value={"https://dazan.tokshine.com/bg.png"}>背景一 </Radio>
                 <Radio
                   style={{ marginLeft: 10 }}
-                  value={"https://www.dazanim.com/hi.png"}
+                  value={"https://dazan.tokshine.com/hi.png"}
                 >
                   背景2
                 </Radio>
@@ -619,7 +619,7 @@ export function Settings() {
               subTitle={Locale.Settings.Backimg.SubTitle}
             >
               <Link
-                href="https://www.dazanim.com/hi.mp4"
+                href="https://dazan.tokshine.com/hi.mp4"
                 target="_blank"
                 className="link"
               >
@@ -630,17 +630,17 @@ export function Settings() {
 
           {config.checkFlag === checkFlag.First ? (
             <ListItem title={Locale.Settings.Backimg.BackimgTitle}>
-              {config.backImg === "https://www.dazanim.com/bg.png" ? (
+              {config.backImg === "https://dazan.tokshine.com/bg.png" ? (
                 <Image
                   width={100}
                   height={50}
-                  src="https://www.dazanim.com/bg.png"
+                  src="https://dazan.tokshine.com/bg.png"
                 />
               ) : (
                 <Image
                   width={100}
                   height={50}
-                  src="https://www.dazanim.com/hi.png"
+                  src="https://dazan.tokshine.com/hi.png"
                 />
               )}
             </ListItem>
