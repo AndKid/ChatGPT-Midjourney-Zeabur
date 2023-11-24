@@ -601,7 +601,7 @@ export const useChatStore = create<ChatStore>()(
                               ? "Angela-inwhiteskirt-20220820"
                               : appConfig.personModel === personModel.MaleModel
                               ? "Joon-incasualsuit-20220821"
-                              : api.avatarToken,
+                              : api.avatarToken.toString(),
                           avatar_style: "normal",
                           // type: "talking_photo",
                           // talking_photo_id: "ba9c11684315405aac1dd8ed987fdda2"
@@ -614,7 +614,7 @@ export const useChatStore = create<ChatStore>()(
                               ? "961546a1be64458caa1386ff63dd5d5f"
                               : appConfig.voiceCheck === voiceCheck.Female
                               ? "8a44173a27984487b3fa86e56004218c"
-                              : api.voiceToken,
+                              : api.voiceToken.toString(),
                         },
                         background: {
                           type:
